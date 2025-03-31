@@ -27,7 +27,7 @@ public class DayCountClient implements ClientModInitializer, HudRenderCallback {
                     // Day time has changed, update the cached value and do any necessary updates
                     cachedDayTime = currentDayTime;
                     // Update the GUI or other elements as needed
-                    MinecraftClient.getInstance().getFramebuffer().beginWrite(false);
+                    //MinecraftClient.getInstance().getFramebuffer().beginWrite(false);
                     HudRenderCallback.EVENT.register(this);
                 }
             }
