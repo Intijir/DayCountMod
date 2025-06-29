@@ -10,7 +10,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.client.util.math.MatrixStack;
+import org.joml.Matrix3x2fStack;
 
 @Environment(EnvType.CLIENT)
 public class DayCountClient implements ClientModInitializer, HudRenderCallback {
@@ -36,16 +36,21 @@ public class DayCountClient implements ClientModInitializer, HudRenderCallback {
 
     @Override
     public void onHudRender(DrawContext drawContext, RenderTickCounter renderTickCounter) {
-        if (DayCountConfig.INSTANCE.dayCountEnabled) {
-            int currentDay = (int) (MinecraftClient.getInstance().world.getTimeOfDay() / 24000L);
-            TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-            MatrixStack matrixStack = drawContext.getMatrices();
+        MinecraftClient mcClient = MinecraftClient.getInstance();
 
-            matrixStack.push();
-            matrixStack.translate(DayCountConfig.INSTANCE.locationX, DayCountConfig.INSTANCE.locationY, 0);
-            matrixStack.scale(DayCountConfig.INSTANCE.sizeX, DayCountConfig.INSTANCE.sizeY, 2.5f);
-            drawContext.drawTextWithShadow(textRenderer, "Day: " + (currentDay + DayCountConfig.INSTANCE.dayOffset), 2, 2, DayCountConfig.INSTANCE.color);
-            matrixStack.pop();
+        if (DayCountConfig.INSTANCE.dayCountEnabled) {
+            assert mcClient.player != null;
+            if (!mcClient.player.isSpectator()) {
+                int currentDay = (int) (MinecraftClient.getInstance().world.getTimeOfDay() / 24000L);
+                TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
+                Matrix3x2fStack matrixStack = drawContext.getMatrices();
+
+                matrixStack.pushMatrix();
+                matrixStack.translate(DayCountConfig.INSTANCE.locationX, DayCountConfig.INSTANCE.locationY, matrixStack);
+                matrixStack.scale(DayCountConfig.INSTANCE.sizeX, DayCountConfig.INSTANCE.sizeY, matrixStack);
+                drawContext.drawTextWithShadow(textRenderer, "Day: " + (currentDay + DayCountConfig.INSTANCE.dayOffset), 2, 2, DayCountConfig.INSTANCE.colorWithTransparency);
+                matrixStack.popMatrix();
+            }
         }
     }
 }
