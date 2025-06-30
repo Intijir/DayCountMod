@@ -44,6 +44,10 @@ public class DayCountConfig implements ConfigData
     public float locationY = 2.0f;
 
     @ConfigEntry.Gui.Tooltip()
-    @Comment("Color of the Day Counter (with transparency) | default: 0xFFFFFFFF (the first FFs are the transparency value)")
-    public int colorWithTransparency = 0xffffffff;
+    @Comment("Color of the Day Counter (with transparency) | default: FFFFFFFF (the first FFs are the transparency value)")
+    public String colorWithTransparency = "FFFFFFFF";
+
+    @ConfigEntry.Gui.Tooltip()
+    @Comment("DayCounter String | default: 'Day: '")
+    public String dayCounterString = "Day: ";
 }
