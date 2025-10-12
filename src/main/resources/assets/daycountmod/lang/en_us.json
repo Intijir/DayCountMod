@@ -1,6 +1,6 @@
 {
   "key.daycount.day_count": "Toggle Day Count",
-  "key.category.day_count_keybind": "Day Count Keybinds",
+  "key.category.minecraft.day_count_keybind": "Day Count Keybinds",
 
   "text.autoconfig.daycount.title": "Day Count",
   "text.autoconfig.daycount.option.dayCountEnabled": "Display the Day Count?",

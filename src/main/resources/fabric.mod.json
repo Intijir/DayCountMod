@@ -18,7 +18,7 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "com.intijir.daycount.client.DayCountClient"
+      "com.intijir.daycount.DayCountClient"
     ],
     "main": [
       "com.intijir.daycount.DayCount"
